@@ -30,6 +30,9 @@ public class Calculator extends Renderer3D{
 	public double cosAlfa=Math.cos(alfa);
 	public double a=0;//start
 	public double b=6.29;//end
+	//old a and b to be compared with
+	public double aOld=0; 
+	public double bOld=6.29;
 	
 	public double a2=a;
 	public double b2=b;
@@ -54,6 +57,20 @@ public class Calculator extends Renderer3D{
 	    deltay=deltax;
 	    deltaz=deltax;
 		init( WIDTH, HEIGHT);
+	}
+	
+	//method to update n, the amount of points making up graph
+	public void updateN(){
+		double abDiff = Math.abs(b-a);
+		int i = 1;
+		while (abDiff > 10.0){
+			abDiff -= 10.0;
+			i += 1;
+		}
+		n = 1000*i;
+		recalculate = true;
+		aOld = a;
+		bOld = b;
 	}
 	
 	public double[][] getFunction(){
@@ -102,7 +119,10 @@ public class Calculator extends Renderer3D{
 	 * @param graphics2D
 	 */
 	public void draw(Graphics2D graphics2D, int i, int j) {
-		
+		//check if more point need to be added
+		if (aOld != a || bOld != b){
+			updateN();
+		}
 		dx=(b-a)/(n-1);//incremento d'intervallo
 		mathTree=new MathTree(DISPLAYED_FUNCTION.substring(0));
 		if(recalculate)
