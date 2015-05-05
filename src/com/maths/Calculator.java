@@ -526,6 +526,17 @@ public class Calculator extends Renderer3D{
 		y0+=signum*10;
 	}
 	
+	public void toCenter(int coordState) {
+		recalculate=false;
+		if (coordState == 0){
+			x0= 50;
+			y0= 250;
+		}else{
+			x0= 250;
+			y0= 250;
+		}
+	}
+	
 	public void moveCenter(int dx, int dy) {
 		x0+=dx;
 		y0+=dy;
