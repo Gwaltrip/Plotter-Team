@@ -58,6 +58,7 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 	JButton less = null;
 	JButton reset = null;
 	JButton calculateIntegral = null;
+	JLabel zoomLbl = null;
 
 	// size of the diplay panel
 	public static int HEIGHT = 500;
@@ -283,7 +284,7 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 		draw.addActionListener(this);
 		draw.setBounds(5, 5, 130, 20);
 
-		reset = new JButton("<html><body><u>R</u>eset</body</html>");
+		reset = new JButton("<html><body><u>R</u>ecenter</body</html>");
 		reset.addActionListener(this);
 		reset.setBounds(550, 5, 130, 20);
 
@@ -299,6 +300,10 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 		less = new JButton("-");
 		less.addActionListener(this);
 		less.setBounds(870, 5, 50, 20);
+		
+		//label for zoom buttons
+		zoomLbl = new JLabel("Zoom In/Out");
+		zoomLbl.setBounds(823, 30, 100, 10);
 
 		displayedFunction = new FunctionTextField();
 		displayedFunction.addKeyListener(this);
@@ -310,6 +315,7 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 		up.add(reset);
 		up.add(less);
 		up.add(more);
+		up.add(zoomLbl);
 		displayedFunction.setText(calc.DISPLAYED_FUNCTION);
 
 	}
@@ -322,18 +328,20 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 		up = new JPanel();
 		up.setLayout(null);
 		up.setBounds(0, 0, LEFTBORDER + WIDTH + RIGHTBORDER, UPBORDER);
-
+		
 		add(up);
-		JLabel flabel = new JLabel("Displayed function: r(teta)=");
-		flabel.setBounds(5, 5, 160, 20);
-		up.add(flabel);
 
 		displayedFunction = new FunctionTextField();
 		displayedFunction.addKeyListener(this);
 		// displayedFunction.setEditable(false);
-		displayedFunction.setBounds(170, 5, 400, 20);
+		displayedFunction.setBounds(140, 5, 400, 20);
 		displayedFunction.addFocusListener(this);
 		up.add(displayedFunction);
+		up.add(draw);
+		up.add(less);
+		up.add(more);
+		up.add(zoomLbl);
+		up.add(reset);
 
 		displayedFunction.setText(calc.DISPLAYED_FUNCTION);
 
@@ -435,7 +443,7 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 		right.setBounds(LEFTBORDER + WIDTH, UPBORDER, RIGHTBORDER, HEIGHT);
 
 		JLabel rlabel = new JLabel("Displayed range:");
-		rlabel.setBounds(5, 60, 100, 20);
+		rlabel.setBounds(5, 60, 120, 20);
 		right.add(rlabel);
 
 		JLabel alabel = new JLabel("a:");
@@ -672,6 +680,9 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 				zoomLevel--;
 				zoom(-1);
 			}
+		}
+		else if (o == reset) {
+			toCenter();
 		}
 		else if (o == calculateIntegral || o == jmt3) {
 
@@ -1014,6 +1025,25 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 		calc.left(signum);
 		draw();
 
+	}
+	
+	private void toCenter() {
+		while (zoomLevel != 0){
+			if (zoomLevel > 0){
+				zoomLevel--;
+				zoom(-1);
+			}else {
+				zoomLevel++;
+				zoom(+1);
+			}
+		}
+		if (VISUALIZATION_STATE == CARTESIAN2D_STATE){
+			calc.toCenter(CARTESIAN2D_STATE);
+		}else{
+			calc.toCenter(POLAR2D_STATE);
+		}
+		
+		draw();
 	}
 
 	/**
