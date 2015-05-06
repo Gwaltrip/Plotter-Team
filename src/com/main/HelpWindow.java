@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
 public class HelpWindow extends JDialog{
-	int HEIGHT=600;
+	int HEIGHT=620;
 	int WIDTH=700;
 	
 	private JPanel pan;
@@ -18,7 +18,7 @@ public class HelpWindow extends JDialog{
 		pan=new JPanel();
 		pan.setLayout(null);
 		txtPane = new JTextPane();
-		txtPane.setBounds(5, 5, 690, 585);
+		txtPane.setBounds(5, 5, 690, 605);
 		txtPane.setText("Welcome to the Plotter help page. Here lies information on "
 				+ "how exactly to use the Ploter program.\n"
 				+ "\n1) Entering a function:\n"
@@ -28,7 +28,8 @@ public class HelpWindow extends JDialog{
 				+ "	- \"x\", \"y\" in Polar 2D\n"
 				+ "	- \"x\", \"y\", \"z\" in Cartesian 3D\n"
 				+ "- Coefficients must be entered with multiplication sign, i.e: \"2*x\" is equivalent to 2x.\n"
-				+ "- Once equation is entered, draw can be pressed to draw resultant graph.\n"
+				+ "- Range fields must have values in them before you can draw."
+				+ "- Once equation is entered, \"Draw\" can be pressed to draw resultant graph.\n"
 				+ "\n2) Controls:\n"
 				+ "- Graphs can be navigated by using the arrow keys along with clicking them with the mouse.\n"
 				+ "- Display Ranges can be entered into the text fields to adjust the display range, \"Draw\" must be pressed to update graph.\n"

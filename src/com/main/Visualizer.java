@@ -612,7 +612,7 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 			graphics2D.drawImage(buf, 0, 0, WIDTH, HEIGHT, null);
 		} catch (Exception e) {
 			e.printStackTrace();
-			error("Error in parsing function,please read the README.TXT !");
+			error("Error in parsing function, please visit the ReadMe under the Help menu for more info.");
 			displayedFunction.setText("0");
 
 			return;
