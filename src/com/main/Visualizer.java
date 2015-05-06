@@ -540,7 +540,7 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 		displayedB.addKeyListener(this);
 		// displayedB.setEditable(false);
 		displayedB.setBounds(50, 120, 60, 20);
-		right.add(displayedB);
+		right.add(displayedB);		
 		
 		//adding increment buttons to polar also
 		right.add(aIncr);
@@ -616,20 +616,41 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 	 * 
 	 */
 	private void readRange() {
-		double a = Double.parseDouble(displayedA.getText());
+		String A = displayedA.getText().replaceAll( "[^0-9.-]", "" );
+		String B = displayedB.getText().replaceAll( "[^0-9.-]", "" );
+		if(A.equals("-")||A.equals("")){
+			A = "0";
+			B = "0";
+		}
+		if(B.equals("-")||B.equals("")){
+			A = "0";
+			B = "0";
+		}
+		System.out.println(A);
+		double a = Double.parseDouble(A);
 		calc.a = a;
-		double b = Double.parseDouble(displayedB.getText());
+		double b = Double.parseDouble(B);
 		calc.b = b;
 		if (VISUALIZATION_STATE == CARTESIAN3D_STATE) {
+			String A2 = displayedA.getText().replaceAll( "[^0-9.-]", "" );
+			String B2 = displayedB.getText().replaceAll( "[^0-9.-]", "" );
+			if(A2.equals("-")||A2.equals("")){
+				A2 = "0";
+				B2 = "0";
+			}
+			if(B2.equals("-")||B2.equals("")){
+				A2 = "0";
+				B2 = "0";
+			}
 			double a2 = Double.parseDouble(displayedA2.getText());
 			calc.a2 = a2;
 			double b2 = Double.parseDouble(displayedB2.getText());
 			calc.b2 = b2;
-
 		}
-
+		
 		calc.DISPLAYED_FUNCTION = displayedFunction.getText();
 		draw.requestFocus(true);
+
 	}
 
 	/**
@@ -1047,18 +1068,6 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 			up(+1);
 		else if (code == KeyEvent.VK_D)
 			draw();
-		else if (code == KeyEvent.VK_PLUS && !displayedFunction.hasFocus()){
-			if(zoomLevel > zoomMin){
-				zoomLevel--;
-				zoom(-1);
-			}
-		}
-		else if (code == KeyEvent.VK_MINUS && !displayedFunction.hasFocus()){
-			if(zoomLevel < zoomMax){
-				zoomLevel++;
-				zoom(+1);
-			}
-		}
 	}
 
 	public void keyReleased(KeyEvent arg0) {
