@@ -697,16 +697,36 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 	}
 
 	public void loadProperties() {
-
-		p = new Properties();
-		try {
-			p.load(new FileInputStream("mathgraphics.properties"));
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
+		File file = new File("mathgraphics.properties");
+		if(file.isFile()) {
+			p = new Properties();
+			try {
+				p.load(new FileInputStream("mathgraphics.properties"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+		else{
+			try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+		              new FileOutputStream("mathgraphics.properties"), "utf-8"))) {
+				writer.write("#Tue Feb 24 14:33:54 MST 2015\n");
+				writer.write("LINE_3D_COLOR=192,192,192\n");
+				writer.write("PANEL_COLOR=205,190,112\n");
+				writer.write("LINE_2_COLOR=0,255,0\n");
+				writer.write("BACKGROUND_COLOR=255,236,139\n");
+				writer.write("AXIS_COLOR=0,0,0\n");
+				writer.write("LINE_COLOR=0,0,255\n");
+				writer.close();
 
+				loadProperties();				
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/*
