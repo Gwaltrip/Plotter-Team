@@ -626,7 +626,6 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 			A = "0";
 			B = "0";
 		}
-		System.out.println(A);
 		double a = Double.parseDouble(A);
 		calc.a = a;
 		double b = Double.parseDouble(B);
