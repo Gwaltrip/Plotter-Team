@@ -19,6 +19,7 @@ import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.text.DecimalFormat;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
@@ -59,6 +60,10 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 	JButton reset = null;
 	JButton calculateIntegral = null;
 	JLabel zoomLbl = null;
+	JButton aIncr = null;
+	JButton aDecr = null;
+	JButton bIncr = null;
+	JButton bDecr = null;
 
 	// size of the diplay panel
 	public static int HEIGHT = 500;
@@ -114,6 +119,7 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 
 	private final int zoomMin = -3;
 	private final int zoomMax = 2;
+	DecimalFormat df=new DecimalFormat("##.##");
 
 	public Visualizer() {
 
@@ -476,6 +482,26 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 		displayDerivative.setBounds(5, 180, 100, 20);
 		displayDerivative.addActionListener(this);
 		right.add(displayDerivative);
+		
+		aDecr = new JButton("<");
+		aDecr.setBounds(105, 90, 20, 20);
+		aDecr.addActionListener(this);
+		right.add(aDecr);
+		
+		aIncr = new JButton(">");
+		aIncr.setBounds(125, 90, 20, 20);
+		aIncr.addActionListener(this);
+		right.add(aIncr);
+		
+		bDecr = new JButton("<");
+		bDecr.setBounds(105, 120, 20, 20);
+		bDecr.addActionListener(this);
+		right.add(bDecr);
+		
+		bIncr = new JButton(">");
+		bIncr.setBounds(125, 120, 20, 20);
+		bIncr.addActionListener(this);
+		right.add(bIncr);
 
 		displayedA.setText("" + calc.a);
 		displayedB.setText("" + calc.b);
@@ -515,6 +541,12 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 		// displayedB.setEditable(false);
 		displayedB.setBounds(50, 120, 60, 20);
 		right.add(displayedB);
+		
+		//adding increment buttons to polar also
+		right.add(aIncr);
+		right.add(aDecr);
+		right.add(bIncr);
+		right.add(bDecr);
 
 		displayedA.setText("" + calc.a);
 		displayedB.setText("" + calc.b);
@@ -683,6 +715,30 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 		}
 		else if (o == reset) {
 			toCenter();
+		}
+		else if (o == aDecr) {
+			Double tmpRange = Double.parseDouble(displayedA.getText());
+			tmpRange -= 1.0;
+			displayedA.setText(df.format(tmpRange));
+			draw();
+		}
+		else if (o == aIncr) {
+			Double tmpRange = Double.parseDouble(displayedA.getText());
+			tmpRange += 1.0;
+			displayedA.setText(df.format(tmpRange));
+			draw();
+		}
+		else if (o == bDecr) {
+			Double tmpRange = Double.parseDouble(displayedB.getText());
+			tmpRange -= 1.0;
+			displayedB.setText(df.format(tmpRange));
+			draw();
+		}
+		else if (o == bIncr) {
+			Double tmpRange = Double.parseDouble(displayedB.getText());
+			tmpRange += 1.0;
+			displayedB.setText(df.format(tmpRange));
+			draw();
 		}
 		else if (o == calculateIntegral || o == jmt3) {
 
