@@ -106,6 +106,8 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 	public DigitTextField displayedB2;
 	private JMenu jm4;
 	private JMenuItem jmt41;
+	private JMenu helpmenu;
+	private JMenuItem helpmenuitem;
 	static boolean start = true;
 	JFileChooser fc = new JFileChooser();
 	private JLabel screenPoint;
@@ -244,8 +246,14 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 		jmt42 = new JMenuItem("Export data");
 		jmt42.addActionListener(this);
 		jm4.add(jmt42);
-
 		jmb.add(jm4);
+		
+		helpmenu = new JMenu("Help");
+		helpmenu.addMenuListener(this);
+		helpmenuitem = new JMenuItem("ReadMe");
+		helpmenuitem.addActionListener(this);
+		helpmenu.add(helpmenuitem);
+		jmb.add(helpmenu);
 
 		setJMenuBar(jmb);
 
@@ -805,6 +813,11 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 			jmt3.setVisible(false);
 			jmt4.setVisible(false);
 			setColors(p);
+			//default 3d range values
+			displayedA.setText("0.0");
+			displayedB.setText("6.29");
+			displayedA2.setText("0.0");
+			displayedB2.setText("6.29");
 			repaint();
 		} else if (o == jmt31) {
 			selectColors();
@@ -815,6 +828,9 @@ public class Visualizer extends JFrame implements ActionListener, KeyListener,
 		} else if (o == jmt42) {
 
 			exportData();
+		}
+		else if (o == helpmenuitem) {
+			HelpWindow hwindow = new HelpWindow();
 		}
 
 	}
